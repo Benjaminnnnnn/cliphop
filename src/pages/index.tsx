@@ -1,3 +1,4 @@
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import Head from "next/head";
 
 export default function Home() {

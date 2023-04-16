@@ -1,3 +1,4 @@
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
@@ -14,18 +15,22 @@ export default function App({ Component, pageProps }: AppProps) {
   if (isSSR) null;
 
   return (
-    <div>
-      <Navbar></Navbar>
-      <div className="flex gap-6 md:gap-20">
-        <div className="h-[92vh] overflow-hidden xl:hover:overflow-auto">
-          <Sidebar></Sidebar>
-        </div>
+    <GoogleOAuthProvider
+      clientId={`${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`}
+    >
+      <div>
+        <Navbar></Navbar>
+        <div className="flex gap-6 md:gap-20">
+          <div className="h-[92vh] overflow-hidden xl:hover:overflow-auto">
+            <Sidebar></Sidebar>
+          </div>
 
-        {/* main content */}
-        <div className="mt-4 flex flex-col gap-10 overflow-auto h-[88vh] videos flex-1">
-          <Component {...pageProps} />
+          {/* main content */}
+          <div className="videos mt-4 flex h-[88vh] flex-1 flex-col gap-10 overflow-auto">
+            <Component {...pageProps} />
+          </div>
         </div>
       </div>
-    </div>
+    </GoogleOAuthProvider>
   );
 }
