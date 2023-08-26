@@ -15,6 +15,9 @@ export const createOrGetUser = async (response: any, addUser: any) => {
     userName: decoded.name,
     image: decoded.picture,
   };
+
+  addUser(user);
+
   await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth`, user, {
     headers: {
       "Cross-Origin-Opener-Policy": "same-origin-allow-popups",

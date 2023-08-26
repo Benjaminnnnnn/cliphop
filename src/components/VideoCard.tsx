@@ -32,36 +32,35 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
 
   return (
     <div className="flex flex-col border-b-2 border-gray-200 pb-6">
-      <div>
-        <div className="flex cursor-pointer gap-3 rounded p-2 font-semibold">
-          <div className="h-10 w-10 md:h-16 md:w-16">
-            <Link href="/">
-              <>
-                <Image
-                  width={62}
-                  height={62}
-                  className="rounded-full"
-                  src={post.postedBy.image}
-                  alt="user-profile"
-                  layout="responsive"
-                ></Image>
-              </>
-            </Link>
-          </div>
+      <div className="flex gap-3 rounded p-2 font-semibold">
+        <div className="h-10 w-10 cursor-pointer md:h-16 md:w-16 ">
+          <Link href="/">
+            <div className="relative h-10 w-10 rounded-full md:h-16 md:w-16">
+              <Image
+                className="rounded-full"
+                src={post.postedBy.image}
+                alt="user-profile"
+                objectFit="cover"
+                layout="fill"
+              ></Image>
+            </div>
+          </Link>
+        </div>
 
-          <div>
-            <Link href="/">
+        <div className="my-auto cursor-pointer ">
+          <Link href="/">
+            <div className="flex flex-col gap-1">
               <div className="flex items-center gap-2">
-                <p className="font-bold text-primary md:text-base">
+                <p className="font-bold text-primary md:text-lg">
                   {post.postedBy.userName}
                 </p>
                 <GoVerified className="text-md text-blue-400"></GoVerified>
-                <p className="hidden text-xs font-medium capitalize text-gray-500 md:block">
-                  {post.postedBy.userName}
-                </p>
               </div>
-            </Link>
-          </div>
+              <p className="hidden text-xs font-medium capitalize text-gray-500 md:block">
+                {post.postedBy.userName}
+              </p>
+            </div>
+          </Link>
         </div>
       </div>
 
@@ -75,14 +74,16 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
             setIsHover(false);
           }}
         >
-          <Link href="/">
-            <video
-              src={post.video.asset.url}
-              loop
-              className="aspect-video h-[300px] w-[200px] cursor-pointer rounded-2xl bg-gray-100 md:h-[400px] lg:h-[530px] lg:w-[600px]"
-              ref={videoRef}
-              muted={isMuted}
-            ></video>
+          <Link href={`/detail/${post._id}`}>
+            <a>
+              <video
+                src={post.video.asset.url}
+                loop
+                className="aspect-video h-[300px] w-[200px] cursor-pointer rounded-2xl bg-gray-100 md:h-[400px] lg:h-[530px] lg:w-[600px]"
+                ref={videoRef}
+                muted={isMuted}
+              ></video>
+            </a>
           </Link>
 
           {isHover && (

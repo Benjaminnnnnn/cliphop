@@ -20,9 +20,9 @@ export default function Home({ videos }: IProps) {
 
       <div className="videos flex h-full flex-col gap-10">
         {videos.length ? (
-          videos.map((video) => (
-            <VideoCard post={video} key={video._id}></VideoCard>
-          ))
+          videos.map((video) => {
+            return <VideoCard post={video} key={video._id}></VideoCard>;
+          })
         ) : (
           <NoResults text={"No Videos"}></NoResults>
         )}
@@ -32,7 +32,9 @@ export default function Home({ videos }: IProps) {
 }
 
 export const getServerSideProps = async () => {
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/post`);
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/post`
+  );
 
   return {
     props: {

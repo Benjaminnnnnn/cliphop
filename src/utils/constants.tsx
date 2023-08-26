@@ -1,42 +1,78 @@
-import { BsCode, BsEmojiSunglasses } from 'react-icons/bs';
-import { GiCakeSlice, GiGalaxy, GiLipstick } from 'react-icons/gi';
-import { FaPaw, FaMedal, FaGamepad } from 'react-icons/fa';
+import { BsCode, BsEmojiSunglasses } from "react-icons/bs";
+import { FaGamepad, FaMedal, FaPaw, FaRegNewspaper } from "react-icons/fa";
+import { GiCakeSlice, GiGalaxy, GiLipstick } from "react-icons/gi";
+import { IoMusicalNotes } from "react-icons/io5";
 
 export const topics = [
   {
-    name: 'development',
+    name: "development",
     icon: <BsCode />,
   },
   {
-    name: 'comedy',
+    name: "comedy",
     icon: <BsEmojiSunglasses />,
   },
   {
-    name: 'gaming',
+    name: "gaming",
     icon: <FaGamepad />,
   },
   {
-    name: 'food',
+    name: "food",
     icon: <GiCakeSlice />,
   },
   {
-    name: 'dance',
+    name: "dance",
     icon: <GiGalaxy />,
   },
   {
-    name: 'beauty',
+    name: "beauty",
     icon: <GiLipstick />,
   },
   {
-    name: 'animals',
+    name: "animals",
     icon: <FaPaw />,
   },
   {
-    name: 'sports',
+    name: "sports",
     icon: <FaMedal />,
   },
-];
+  {
+    name: "music",
+    icon: <IoMusicalNotes />,
+  },
+  {
+    name: "news",
+    icon: <FaRegNewspaper />,
+  },
+].sort((a, b) => {
+  if (a.name <= b.name) {
+    return -1;
+  } else {
+    return 1;
+  }
+});
 
-export const footerList1 = ['About', 'Newsroom', 'Store', 'Contact', 'Carrers', 'ByteDance', 'Creator Directory']
-export const footerList2 = [ 'TikTik for Good','Advertise','Developers','Transparency','TikTik Rewards' ]
-export const footerList3 = [ 'Help', 'Safety', 'Terms', 'Privacy', 'Creator Portal', 'Community Guidelines' ]
+export const footerList1 = [
+  "About",
+  "Newsroom",
+  "Store",
+  "Contact",
+  "Carrers",
+  "ByteDance",
+  "Creator Directory",
+];
+export const footerList2 = [
+  "Cliphop for Good",
+  "Advertise",
+  "Developers",
+  "Transparency",
+  "Cliphop Rewards",
+];
+export const footerList3 = [
+  "Help",
+  "Safety",
+  "Terms",
+  "Privacy",
+  "Creator Portal",
+  "Community Guidelines",
+];
