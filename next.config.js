@@ -8,6 +8,7 @@ const nextConfig = {
       "images.ctfassets.net",
       "cdn3.iconfinder.com",
       "avatarfiles.alphacoders.com",
+      "i.pinimg.com",
     ],
   },
 };

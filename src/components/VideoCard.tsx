@@ -31,10 +31,10 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
   };
 
   return (
-    <div className="flex flex-col border-b-2 border-gray-200 pb-6">
+    <div className="flex flex-col gap-2 border-b-2 border-gray-200 pb-6">
       <div className="flex gap-3 rounded p-2 font-semibold">
         <div className="h-10 w-10 cursor-pointer md:h-16 md:w-16 ">
-          <Link href="/">
+          <Link href={`/profile/${post.postedBy._id}`}>
             <div className="relative h-10 w-10 rounded-full md:h-16 md:w-16">
               <Image
                 className="rounded-full"
@@ -47,16 +47,16 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
           </Link>
         </div>
 
-        <div className="my-auto cursor-pointer ">
-          <Link href="/">
-            <div className="flex flex-col gap-1">
+        <div className="my-auto cursor-pointer md:my-0 ">
+          <Link href={`/profile/${post.postedBy._id}`}>
+            <div className="flex flex-col justify-start gap-1">
               <div className="flex items-center gap-2">
                 <p className="font-bold text-primary md:text-lg">
                   {post.postedBy.userName}
                 </p>
                 <GoVerified className="text-md text-blue-400"></GoVerified>
               </div>
-              <p className="hidden text-xs font-medium capitalize text-gray-500 md:block">
+              <p className="hidden text-xs font-medium capitalize text-gray-500 md:block md:text-sm">
                 {post.postedBy.userName}
               </p>
             </div>

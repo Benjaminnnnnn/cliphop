@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { useEffect, useState } from "react";
 // import { IoLogOutOutline } from "react-icons/ai";
+import { useRouter } from "next/router";
 import { IoMdAdd } from "react-icons/io";
 import { IoLogOutOutline } from "react-icons/io5";
 import { IUser } from "../../types";
@@ -48,9 +49,20 @@ const Navbar = () => {
   const { userProfile, addUser, removeUser } = useAuthStore();
   const [user, setUser] = useState<IUser | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const router = useRouter();
+
   useEffect(() => {
     setUser(userProfile);
   }, []);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (searchValue) {
+      router.push(`/search/${searchValue}`);
+    }
+  };
 
   return (
     <div className="flex w-full items-center justify-between border-b-2 border-gray-200 px-4 py-2">
@@ -60,7 +72,39 @@ const Navbar = () => {
         </div>
       </Link>
 
-      <div>SEARCH</div>
+      <div className="relative hidden md:block">
+        <form onSubmit={handleSearch}>
+          <input
+            className="w-[300px] rounded-full border-2 border-gray-100 bg-primary px-5 py-2 font-medium focus:border-2 focus:border-gray-300 focus:outline-none md:w-[350px] md:text-base"
+            type="text"
+            value={searchValue}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearchValue(e.target.value)
+            }
+            placeholder="Search accounts and videos"
+          />
+          <button
+            type="submit"
+            className="absolute right-6 top-1/2 -translate-y-1/2 border-l-2 border-gray-300 pl-4 text-2xl text-gray-400 md:right-5"
+          >
+            <svg
+              className="h-4 w-4"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              />
+            </svg>
+          </button>
+        </form>
+      </div>
 
       <div>
         {user ? (
@@ -81,7 +125,6 @@ const Navbar = () => {
                     setIsOpen((prevIsOpen) => !prevIsOpen);
                   }}
                 >
-                  {/* <Link href="/"> */}
                   <Image
                     className="cursor-pointer rounded-full "
                     src={user.image}
@@ -89,7 +132,6 @@ const Navbar = () => {
                     layout="fill"
                     objectFit="cover"
                   ></Image>
-                  {/* </Link> */}
                 </div>
                 {isOpen && (
                   <MenuCollapse
@@ -99,18 +141,6 @@ const Navbar = () => {
                 )}
               </>
             )}
-
-            {/* <button
-              type="button"
-              onClick={() => {
-                googleLogout();
-                removeUser();
-                // workaround for zustand state change not triggering nextjs re-render
-                location.reload();
-              }}
-            >
-              <AiOutlineLogout color="red" fontSize={24}></AiOutlineLogout>
-            </button> */}
           </div>
         ) : (
           <GoogleLogin

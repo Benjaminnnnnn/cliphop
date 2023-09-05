@@ -8,14 +8,14 @@ import useAuthStore from "../store/authStore";
 const SuggestedAccounts = () => {
   const { fetchAllUsers, allUsers } = useAuthStore();
 
+  // const users = allUsers.sort(() => 0.5 - Math.random());
+
   useEffect(() => {
     fetchAllUsers();
   }, [fetchAllUsers]);
 
-  console.log("allUsers:", allUsers);
-
   return (
-    <div className="border-gray-200 pb-4 xl:border-b-2">
+    <div className="hidden border-gray-200 pb-4 md:block xl:border-b-2">
       <p className="m-3 mt-4 hidden font-semibold text-gray-500 xl:block">
         Suggested Accounts
       </p>

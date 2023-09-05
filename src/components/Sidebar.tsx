@@ -1,13 +1,10 @@
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useState } from "react";
 import { AiFillHome, AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import Discover from "./Discover";
 import Footer from "./Footer";
-
-const SuggestedAccounts = dynamic(() => import("./SuggestedAccounts"), {
-  ssr: false,
-});
+import NoSSRWrapper from "./NoSSRWrapper";
+import SuggestedAccounts from "./SuggestedAccounts";
 
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(true);
@@ -43,7 +40,9 @@ const Sidebar = () => {
           </div>
 
           <Discover></Discover>
-          <SuggestedAccounts></SuggestedAccounts>
+          <NoSSRWrapper>
+            <SuggestedAccounts></SuggestedAccounts>
+          </NoSSRWrapper>
           <Footer></Footer>
         </div>
       )}

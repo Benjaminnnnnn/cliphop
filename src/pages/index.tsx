@@ -1,7 +1,9 @@
 import axios from "axios";
 import Head from "next/head";
 import { Video } from "../../types";
+import Navbar from "../components/Navbar";
 import NoResults from "../components/NoResults";
+import Sidebar from "../components/Sidebar";
 import VideoCard from "../components/VideoCard";
 
 interface IProps {
@@ -18,27 +20,44 @@ export default function Home({ videos }: IProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="videos flex h-full flex-col gap-10">
-        {videos.length ? (
-          videos.map((video) => {
-            return <VideoCard post={video} key={video._id}></VideoCard>;
-          })
-        ) : (
-          <NoResults text={"No Videos"}></NoResults>
-        )}
+      <Navbar></Navbar>
+
+      <div className="ml-4 mt-4 flex gap-6 md:ml-6 md:gap-20">
+        <div className="h-full overflow-hidden xl:hover:overflow-auto">
+          <Sidebar></Sidebar>
+        </div>
+
+        <div className="videos flex h-full flex-1 flex-col gap-4 md:gap-10">
+          {videos.length ? (
+            videos.map((video) => {
+              return <VideoCard post={video} key={video._id}></VideoCard>;
+            })
+          ) : (
+            <NoResults text={"No Videos"}></NoResults>
+          )}
+        </div>
       </div>
     </>
   );
 }
 
-export const getServerSideProps = async () => {
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/post`
-  );
+export const getServerSideProps = async ({
+  query: { topic },
+}: {
+  query: { topic: string };
+}) => {
+  let response = null;
+  if (topic) {
+    response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/discover/${topic}`
+    );
+  } else {
+    response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/post`);
+  }
 
   return {
     props: {
-      videos: data,
+      videos: response.data,
     },
   };
 };

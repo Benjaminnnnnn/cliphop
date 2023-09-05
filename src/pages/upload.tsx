@@ -5,6 +5,7 @@ import { client } from "../utils/client";
 
 import axios from "axios";
 import { useRouter } from "next/router";
+import { IoMdArrowBack } from "react-icons/io";
 import useAuthStore from "../store/authStore";
 import { topics } from "../utils/constants";
 
@@ -74,6 +75,12 @@ const Upload = () => {
 
   return (
     <div className="absolute left-0 top-0 flex h-[100vh] w-full bg-white lg:h-full lg:justify-center">
+      <div className="absolute left-4 top-6 z-50 flex gap-6 lg:left-6">
+        <a onClick={() => router.back()}>
+          <IoMdArrowBack className="cursor-pointer text-3xl"></IoMdArrowBack>
+        </a>
+      </div>
+
       <div className="flex h-full w-full flex-col items-stretch gap-6 rounded-lg bg-white p-14 pt-6 lg:w-3/5 lg:justify-center lg:gap-12 ">
         <div className="flex flex-col items-center">
           <div className="self-start">
@@ -84,7 +91,7 @@ const Upload = () => {
             className="roudned-xl group mt-8 flex aspect-[9/16] max-h-[600px]
                       cursor-pointer flex-col items-center justify-center
                       border-4 border-dashed border-gray-400 p-4
-                      outline-none hover:border-red-300
+                      outline-none hover:border-blue-300
                       hover:bg-gray-100 lg:aspect-video lg:max-h-none "
           >
             {isLoading ? (
@@ -121,7 +128,8 @@ const Upload = () => {
                             Less than 2 GB */}
                         </p>
 
-                        <p className="text-md mt-10 w-52 rounded bg-[#F51997] p-2 text-center font-medium text-white outline-none">
+                        {/* <p className="text-md mt-10 w-52 rounded bg-[#F51997] p-2 text-center font-medium text-white outline-none"> */}
+                        <p className="text-md mt-10 w-52 rounded bg-blue-500 p-2 text-center font-medium text-white outline-none active:bg-blue-700">
                           Select File
                         </p>
                         {/* </div> */}
@@ -141,7 +149,8 @@ const Upload = () => {
             )}
 
             {wrongFileType && (
-              <p className="mt-4 w-[250px] text-center text-xl font-semibold text-red-400">
+              // <p className="mt-4 w-[250px] text-center text-xl font-semibold text-red-400">
+              <p className="mt-4 w-[250px] text-center text-xl font-semibold text-blue-300">
                 Please select a video file
               </p>
             )}
@@ -182,14 +191,15 @@ const Upload = () => {
             <button
               onClick={handleDiscard}
               type="button"
-              className="flex-1 cursor-pointer rounded border-2 border-gray-300 p-2 text-base font-medium lg:w-44 lg:flex-none"
+              className="flex-1 cursor-pointer rounded border-2 border-gray-300 p-2 text-base font-medium active:bg-gray-300 lg:w-44 lg:flex-none"
             >
               Discard
             </button>
             <button
               onClick={handlePost}
               type="button"
-              className="flex-1 cursor-pointer rounded border-2 border-gray-300 bg-[#F51997] p-2 text-base font-medium text-white lg:w-44 lg:flex-none"
+              // className="flex-1 cursor-pointer rounded border-2 border-gray-300 bg-[#F51997] p-2 text-base font-medium text-white lg:w-44 lg:flex-none"
+              className="flex-1 cursor-pointer rounded border-2 border-gray-300 bg-blue-500 p-2 text-base font-medium text-white active:bg-blue-700 lg:w-44 lg:flex-none"
             >
               Post
             </button>

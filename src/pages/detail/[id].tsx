@@ -94,7 +94,7 @@ const VideoDetail = ({ postDetails }: IProps) => {
               className="h-full cursor-pointer"
             ></video>
           </div>
-          <div className="pointer-events-none absolute left-[45%] top-[48%]">
+          <div className={`pointer-events-none absolute left-[45%] top-[48%]`}>
             {isHover &&
               (!isPlaying ? (
                 <button>

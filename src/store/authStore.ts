@@ -8,7 +8,7 @@ const authStore = (
 ): {
   userProfile: IUser | null;
   addUser: (user: IUser) => void;
-  allUsers: [];
+  allUsers: IUser[];
   removeUser: () => void;
   fetchAllUsers: () => void;
 } => ({
