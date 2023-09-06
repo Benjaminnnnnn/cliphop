@@ -2,15 +2,14 @@ import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import Image from "next/image";
 import Link from "next/link";
 
-import { useEffect, useState } from "react";
-// import { IoLogOutOutline } from "react-icons/ai";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { IoLogOutOutline } from "react-icons/io5";
 import { IUser } from "../../types";
 import useAuthStore from "../store/authStore";
 import { createOrGetUser } from "../utils";
-import Logo from "../utils/tiktik-logo.png";
+import Logo from "../utils/cliphop-logo.png";
 
 const MenuCollapse = ({
   removeUser,
@@ -67,7 +66,7 @@ const Navbar = () => {
   return (
     <div className="flex w-full items-center justify-between border-b-2 border-gray-200 px-4 py-2">
       <Link href="/">
-        <div className="w-[100px] md:w-[130px]">
+        <div className="relative left-2 flex w-[100px] items-center md:w-[130px]">
           <Image className="cursor-pointer" src={Logo} alt="cliphop"></Image>
         </div>
       </Link>
@@ -126,7 +125,7 @@ const Navbar = () => {
                   }}
                 >
                   <Image
-                    className="cursor-pointer rounded-full "
+                    className="cursor-pointer rounded-full"
                     src={user.image}
                     alt="user-profile"
                     layout="fill"

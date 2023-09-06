@@ -1,10 +1,14 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { AnimatePresence, motion } from "framer-motion";
 import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import "../styles/globals.css";
+import { fade } from "../utils/motion";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isSSR, setIsSSR] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     setIsSSR(false);
@@ -25,9 +29,18 @@ export default function App({ Component, pageProps }: AppProps) {
 
         {/* main content */}
         {/* <div className="videos flex h-[88vh] flex-1 flex-col gap-10 overflow-auto"> */}
-        <div className="videos flex h-full flex-1 flex-col overflow-auto">
-          <Component {...pageProps} />
-        </div>
+        <AnimatePresence initial={false}>
+          <motion.div
+            className="videos flex h-full flex-1 flex-col overflow-auto"
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            key={router.pathname}
+            variants={fade()}
+          >
+            <Component {...pageProps} />
+          </motion.div>
+        </AnimatePresence>
         {/* </div> */}
       </div>
     </GoogleOAuthProvider>
