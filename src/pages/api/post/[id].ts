@@ -16,7 +16,6 @@ export default async function handler(
   } else if (req.method === "PUT") {
     const { id }: any = req.query;
     const { comment, userId } = req.body;
-    // console.log("trying to post a comment");
     try {
       const data = await client
         .patch(id)

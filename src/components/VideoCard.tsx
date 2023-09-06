@@ -30,6 +30,8 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
     }
   };
 
+  console.log(post);
+
   return (
     <div className="flex flex-col gap-2 border-b-2 border-gray-200 pb-6">
       <div className="flex gap-3 rounded p-2 font-semibold">

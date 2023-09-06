@@ -110,6 +110,8 @@ export const getServerSideProps = async ({
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/profile/${id}`
   );
 
+  console.log(id);
+
   return {
     props: {
       data: response.data,

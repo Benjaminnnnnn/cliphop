@@ -127,7 +127,7 @@ const VideoDetail = ({ postDetails }: IProps) => {
           <div className="ml-4 mt-10 flex flex-col gap-4">
             <div className="flex gap-3 rounded p-2 font-semibold">
               <div className="h-16 w-16 cursor-pointer md:h-20 md:w-20 ">
-                <Link href="/">
+                <Link href={`/profile/${post.postedBy._id}`}>
                   <div className="relative h-16 w-16 rounded-full md:h-20 md:w-20">
                     <Image
                       className="rounded-full"

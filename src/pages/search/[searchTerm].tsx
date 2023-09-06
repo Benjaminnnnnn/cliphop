@@ -17,9 +17,9 @@ const Search = ({ videos }: { videos: Video[] }) => {
   const { allUsers } = useAuthStore();
   const { searchTerm }: any = router.query;
 
-  const searchedUsers = allUsers.filter((user) =>
-    user.userName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const searchedUsers = allUsers.filter((user) => {
+    return user.userName.toLowerCase().includes(searchTerm?.toLowerCase());
+  });
 
   const showAccountsStyle = showAccounts
     ? "border-b-2 border-black"
