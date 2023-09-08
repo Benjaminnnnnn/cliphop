@@ -6,19 +6,6 @@ import Footer from "./Footer";
 import NoSSRWrapper from "./NoSSRWrapper";
 import SuggestedAccounts from "./SuggestedAccounts";
 
-const slideIn = {
-  animate: {
-    opacity: 1,
-    transition: {
-      duration: 10,
-    },
-  },
-  exit: {
-    width: 0,
-    opacity: 0,
-  },
-};
-
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(true);
 
