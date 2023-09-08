@@ -13,7 +13,7 @@ const Sidebar = () => {
     "flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold text-highlight rounded";
 
   return (
-    <div className="flex flex-col">
+    <div className="hidden sm:flex sm:flex-col">
       <div
         className="flex flex-col items-center justify-center rounded px-4 py-2 text-2xl hover:bg-primary"
         onClick={() => setShowSidebar((prev) => !prev)}

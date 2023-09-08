@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
 import { IoMdAdd } from "react-icons/io";
 import { IoLogOutOutline } from "react-icons/io5";
 import { IUser } from "../../types";
@@ -25,9 +26,13 @@ const MenuCollapse = ({
       setIsOpen(false);
     }}
   >
-    <div className="w-30 absolute right-2 top-16 h-60 rounded-lg border-2 bg-white drop-shadow md:h-80 md:w-60">
+    <div className="w-30 absolute right-2 top-16 flex h-60 flex-col rounded-lg border-2 bg-white drop-shadow md:h-80 md:w-60">
+      <button className="mt-2 hidden w-full items-center gap-2 px-4 py-2 hover:bg-primary">
+        <AiOutlineSearch fontSize={24}></AiOutlineSearch>
+        <span>Search</span>
+      </button>
       <button
-        className="my-2 inline-flex w-full items-center gap-2 px-4 py-2 hover:bg-primary md:py-4"
+        className="mt-2 inline-flex w-full items-center gap-2 px-4 py-2 hover:bg-primary md:py-4"
         type="button"
         onClick={() => {
           googleLogout();
@@ -36,7 +41,6 @@ const MenuCollapse = ({
           location.reload();
         }}
       >
-        {/* <AiOutlineLogout color="red" fontSize={24}></AiOutlineLogout> */}
         <IoLogOutOutline fontSize={24}></IoLogOutOutline>
         <span>Logout</span>
       </button>
@@ -66,12 +70,15 @@ const Navbar = () => {
   return (
     <div className="flex w-full items-center justify-between border-b-2 border-gray-200 px-4 py-2">
       <Link href="/">
-        <div className="relative left-2 flex w-[100px] items-center md:w-[130px]">
+        <div className="relative left-2 flex w-8 items-center gap-2 md:w-[110px]">
           <Image className="cursor-pointer" src={Logo} alt="cliphop"></Image>
+          <span className="hidden text-lg text-[#1D3557] md:block">
+            Cliphop
+          </span>
         </div>
       </Link>
 
-      <div className="relative hidden md:block">
+      <div className="relative left-2 hidden md:block">
         <form onSubmit={handleSearch}>
           <input
             className="w-[300px] rounded-full border-2 border-gray-100 bg-primary px-5 py-2 font-medium focus:border-2 focus:border-gray-300 focus:outline-none md:w-[350px] md:text-base"
