@@ -23,7 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <div className="h-screen w-screen overflow-x-hidden">
         <AnimatePresence initial={false}>
           <motion.div
-            className="videos flex h-full flex-1 flex-col overflow-auto"
+            className="videos flex h-full flex-1 flex-col"
             initial="initial"
             animate="animate"
             exit="exit"

@@ -22,8 +22,8 @@ export default function Home({ videos }: IProps) {
 
       <Navbar></Navbar>
 
-      <div className="ml-4 mt-4 flex gap-6 md:ml-6 md:gap-20">
-        <div className="h-full overflow-hidden xl:hover:overflow-auto">
+      <div className="ml-4 mt-4 flex gap-6 md:ml-6 md:gap-10">
+        <div className="h-full overflow-hidden md:hover:overflow-auto">
           <Sidebar></Sidebar>
         </div>
 

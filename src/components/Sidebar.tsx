@@ -6,12 +6,24 @@ import Footer from "./Footer";
 import NoSSRWrapper from "./NoSSRWrapper";
 import SuggestedAccounts from "./SuggestedAccounts";
 
+const slideIn = {
+  animate: {
+    opacity: 1,
+    transition: {
+      duration: 10,
+    },
+  },
+  exit: {
+    width: 0,
+    opacity: 0,
+  },
+};
+
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(true);
 
   const normalLink =
     "flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold text-highlight rounded";
-  const activeLink = "";
 
   return (
     <div className="flex flex-col">
