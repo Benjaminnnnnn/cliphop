@@ -72,7 +72,7 @@ const Navbar = () => {
       <Link href="/">
         <div className="relative left-2 flex w-8 items-center gap-2 md:w-[110px]">
           <Image className="cursor-pointer" src={Logo} alt="cliphop"></Image>
-          <span className="hidden text-lg text-[#1D3557] md:block">
+          <span className="hidden cursor-pointer text-lg text-[#1D3557] md:block">
             Cliphop
           </span>
         </div>
