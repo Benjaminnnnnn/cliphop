@@ -2,11 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
 html,
 body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Space Grotesk", Inter, system-ui, -apple-system, sans-serif;
+  color: #0f172a;
+  background: #f5f7fb;
+  background-image: radial-gradient(circle at 15% 20%, rgba(255, 95, 109, 0.08), transparent 28%), radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.08), transparent 25%), radial-gradient(circle at 60% 60%, rgba(255, 195, 113, 0.12), transparent 22%), linear-gradient(180deg, #f5f7fb 0%, #eef2ff 100%);
 }
 
 a {
@@ -27,10 +33,14 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(237, 237, 237);
+  background-color: rgba(15, 23, 42, 0.2);
   border-radius: 40px;
 }
 
 ::-webkit-scrollbar-track {
   background-color: transparent;
+}
+
+::selection {
+  background: rgba(255, 95, 109, 0.25);
 }

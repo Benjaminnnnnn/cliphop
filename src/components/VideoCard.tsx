@@ -31,8 +31,8 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 border-b-2 border-gray-200 pb-6">
-      <div className="flex gap-3 rounded p-2 font-semibold">
+    <div className="group relative flex flex-col gap-3 rounded-3xl border border-white/70 bg-white/70 p-3 pb-8 shadow-[0_20px_60px_-40px_rgba(15,23,42,0.55)] transition hover:-translate-y-1 hover:shadow-[0_22px_90px_-40px_rgba(255,95,109,0.35)]">
+      <div className="flex gap-3 rounded-xl p-2 font-semibold">
         <div className="h-10 w-10 cursor-pointer md:h-16 md:w-16 ">
           <Link href={`/profile/${post.postedBy._id}`}>
             <div className="relative h-10 w-10 rounded-full md:h-16 md:w-16">
@@ -51,7 +51,7 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
           <Link href={`/profile/${post.postedBy._id}`}>
             <div className="flex flex-col justify-start gap-1">
               <div className="flex items-center gap-2">
-                <p className="font-bold text-primary md:text-lg">
+                <p className="font-bold text-ink md:text-lg">
                   {post.postedBy.userName}
                 </p>
                 <GoVerified className="text-md text-blue-400"></GoVerified>
@@ -79,8 +79,7 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
               <video
                 src={post.video.asset.url}
                 loop
-                // className="aspect-video h-[300px] w-[200px] cursor-pointer rounded-2xl bg-gray-100 md:h-[400px] lg:h-[530px] lg:w-[600px]"
-                className="aspect-video max-h-[600px] cursor-pointer rounded-2xl bg-gray-100"
+                className="aspect-video max-h-[600px] cursor-pointer rounded-2xl border border-white/80 bg-gradient-to-br from-slate-100 to-white shadow-inner shadow-white/60 transition group-hover:scale-[1.01]"
                 ref={videoRef}
                 muted={isMuted}
               ></video>
@@ -88,37 +87,27 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
           </Link>
 
           {isHover && (
-            <div className="absolute bottom-6 left-8 flex cursor-pointer justify-between gap-10 md:left-12">
-              {isPlaying ? (
-                <button
-                  onClick={onVideoPress}
-                  className="rounded-lg bg-black/50 p-2"
-                >
-                  <BsFillPauseFill className="text-2xl text-white lg:text-4xl"></BsFillPauseFill>
-                </button>
-              ) : (
-                <button
-                  onClick={onVideoPress}
-                  className="rounded-lg bg-black/50 p-2"
-                >
-                  <BsFillPlayFill className="text-2xl text-white lg:text-4xl"></BsFillPlayFill>
-                </button>
-              )}
-              {isMuted ? (
-                <button
-                  onClick={() => setIsMuted(false)}
-                  className="rounded-lg bg-black/50 p-2"
-                >
-                  <HiVolumeOff className="text-2xl text-white lg:text-4xl"></HiVolumeOff>
-                </button>
-              ) : (
-                <button
-                  onClick={() => setIsMuted(true)}
-                  className="rounded-lg bg-black/50 p-2"
-                >
-                  <HiVolumeUp className="text-2xl text-white lg:text-4xl"></HiVolumeUp>
-                </button>
-              )}
+            <div className="absolute bottom-6 left-8 flex cursor-pointer justify-between gap-4 md:left-12">
+              <button
+                onClick={onVideoPress}
+                className="flex h-12 w-12 items-center justify-center rounded-full border border-white/35 bg-black/75 text-white shadow-[0_16px_35px_-18px_rgba(0,0,0,0.8)] backdrop-blur transition hover:scale-105 hover:border-brand/50 hover:shadow-[0_18px_45px_-12px_rgba(255,95,109,0.55)]"
+              >
+                {isPlaying ? (
+                  <BsFillPauseFill className="text-2xl lg:text-3xl"></BsFillPauseFill>
+                ) : (
+                  <BsFillPlayFill className="text-2xl lg:text-3xl"></BsFillPlayFill>
+                )}
+              </button>
+              <button
+                onClick={() => setIsMuted((prev) => !prev)}
+                className="flex h-12 w-12 items-center justify-center rounded-full border border-white/35 bg-black/75 text-white shadow-[0_16px_35px_-18px_rgba(0,0,0,0.8)] backdrop-blur transition hover:scale-105 hover:border-brand/50 hover:shadow-[0_18px_45px_-12px_rgba(255,95,109,0.55)]"
+              >
+                {isMuted ? (
+                  <HiVolumeOff className="text-2xl lg:text-3xl"></HiVolumeOff>
+                ) : (
+                  <HiVolumeUp className="text-2xl lg:text-3xl"></HiVolumeUp>
+                )}
+              </button>
             </div>
           )}
         </div>

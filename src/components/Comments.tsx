@@ -33,7 +33,7 @@ const Comments = ({
   const { userProfile, allUsers } = useAuthStore();
   return (
     <div className="flex h-full flex-col justify-between gap-4">
-      <div className="border-y-2 border-gray-200 bg-[#F8F8F8] px-10 pb-[100px] pt-4 lg:pb-0">
+      <div className="rounded-3xl border border-white/70 bg-white/70 px-6 pb-[100px] pt-4 shadow-inner shadow-white/60 lg:pb-4">
         <div className="overflow-scroll">
           {allComments?.length ? (
             allComments.map((comment, idx) => (
@@ -69,7 +69,9 @@ const Comments = ({
                         </Link>
 
                         <div className="mt-2">
-                          <p>{comment.comment}</p>
+                          <p className="text-sm text-slate-700">
+                            {comment.comment}
+                          </p>
                         </div>
                       </div>
                     )
@@ -94,11 +96,11 @@ const Comments = ({
                 setComment(e.target.value);
               }}
               placeholder="Add comment..."
-              className="w-full rounded-md border-2 border-gray-100 bg-primary px-6 py-4 text-base focus:border-2 focus:border-gray-300 focus:outline-none"
+              className="w-full rounded-full border border-white/70 bg-white/70 px-6 py-3 text-base shadow-inner shadow-white/50 transition focus:border-brand/50 focus:outline-none"
             />
 
             <button
-              className="h-full rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none"
+              className="h-full rounded-full border border-transparent bg-gradient-to-r from-brand to-brandSecondary px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand/20 transition hover:brightness-105 focus:outline-none"
               onClick={addComment}
             >
               {isPostingComment ? "Commenting..." : "Comment"}

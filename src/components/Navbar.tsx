@@ -10,7 +10,7 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { IUser } from "../../types";
 import useAuthStore from "../store/authStore";
 import { createOrGetUser } from "../utils";
-import Logo from "../utils/cliphop-logo.png";
+import Logo from "../utils/cliphop-logo-only.png";
 
 const MenuCollapse = ({
   removeUser,
@@ -68,20 +68,33 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex w-full items-center justify-between border-b-2 border-gray-200 px-4 py-2">
+    <div className="sticky top-0 z-30 mx-auto flex w-full max-w-6xl items-center justify-between rounded-2xl border border-white/60 bg-white/70 px-4 py-3 shadow-[0_20px_80px_-50px_rgba(15,23,42,0.45)] backdrop-blur md:mt-3 md:px-6">
       <Link href="/">
-        <div className="relative left-2 flex w-8 items-center gap-2 md:w-[110px]">
-          <Image className="cursor-pointer" src={Logo} alt="cliphop"></Image>
-          <span className="hidden cursor-pointer text-lg text-[#1D3557] md:block">
-            Cliphop
-          </span>
+        <div className="relative flex items-center">
+          <div className="relative flex h-12 w-20 items-center">
+            <Image
+              className="cursor-pointer select-none"
+              src={Logo}
+              alt="cliphop logo"
+              layout="fill"
+              objectFit="contain"
+            ></Image>
+          </div>
+          <div className="hidden cursor-pointer flex-col leading-tight md:flex">
+            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
+              Cliphop
+            </span>
+            <span className="text-lg font-semibold text-ink">
+              Video Playground
+            </span>
+          </div>
         </div>
       </Link>
 
       <div className="relative left-2 hidden md:block">
         <form onSubmit={handleSearch}>
           <input
-            className="w-[300px] rounded-full border-2 border-gray-100 bg-primary px-5 py-2 font-medium focus:border-2 focus:border-gray-300 focus:outline-none md:w-[350px] md:text-base"
+            className="w-[320px] rounded-full border border-white/80 bg-white/80 px-5 py-3 text-sm font-medium text-slate-800 shadow-[0_10px_35px_-18px_rgba(15,23,42,0.4)] ring-1 ring-transparent transition focus:border-brand/60 focus:outline-none focus:ring-brand/40 md:w-[360px] md:text-base"
             type="text"
             value={searchValue}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -91,7 +104,7 @@ const Navbar = () => {
           />
           <button
             type="submit"
-            className="absolute right-6 top-1/2 -translate-y-1/2 border-l-2 border-gray-300 pl-4 text-2xl text-gray-400 md:right-5"
+            className="absolute right-6 top-1/2 -translate-y-1/2 border-l border-slate-200 pl-4 text-xl text-slate-400 transition hover:text-brand md:right-5"
           >
             <svg
               className="h-4 w-4"
@@ -114,9 +127,9 @@ const Navbar = () => {
 
       <div>
         {user ? (
-          <div className="flex items-center gap-5 lg:gap-8">
+          <div className="flex items-center gap-3 lg:gap-6">
             <Link href="/upload">
-              <button className="flex items-center gap-2 rounded-lg border-2 px-2 py-2 text-base font-semibold hover:bg-gray-100 md:px-4">
+              <button className="flex items-center gap-2 rounded-full bg-[linear-gradient(120deg,#ff5f6d,#ff7f68,#ffc371)] px-3 py-2 text-sm font-semibold text-white shadow-[0_12px_30px_-15px_rgba(255,95,109,0.55)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-14px_rgba(255,95,109,0.65)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 active:translate-y-0 md:px-4 md:text-base">
                 <IoMdAdd className="text-xl"></IoMdAdd>
                 {` `}
                 <span className="hidden md:block">Upload</span>
@@ -126,7 +139,7 @@ const Navbar = () => {
             {user.image && (
               <>
                 <div
-                  className="relative flex h-10 w-10 flex-col rounded-full border-4 border-transparent hover:border-blue-500 md:h-12 md:w-12"
+                  className="relative flex h-10 w-10 flex-col rounded-full border-4 border-transparent ring-2 ring-white/60 transition hover:border-brand hover:ring-brand/30 md:h-12 md:w-12"
                   onClick={() => {
                     setIsOpen((prevIsOpen) => !prevIsOpen);
                   }}

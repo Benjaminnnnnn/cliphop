@@ -7,13 +7,13 @@ const Discover = () => {
   const { topic } = router.query;
 
   const activeTopicStyle =
-    "flex cursor-pointer items-center justify-center gap-2 rounded px-3 py-2 text-blue-500 hover:bg-primary xl:rounded-full xl:border-2 xl:border-blue-500";
+    "flex cursor-pointer items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand/90 to-brandSecondary/90 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-brand/20 transition hover:brightness-105";
   const topicStyle =
-    "flex cursor-pointer items-center justify-center gap-2 rounded px-3 py-2 text-black hover:bg-primary xl:rounded-full xl:border-2 xl:border-gray-300";
+    "flex cursor-pointer items-center justify-center gap-2 rounded-full border border-white/70 bg-white/60 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-brand/30 hover:text-brand";
 
   return (
-    <div className="pb-6 xl:border-b-2 xl:border-gray-200">
-      <p className="m-3 mt-4 hidden font-semibold text-gray-500 xl:block">
+    <div className="pb-6 xl:border-b xl:border-white/80">
+      <p className="m-3 mt-4 hidden text-sm font-semibold uppercase tracking-[0.18em] text-slate-400 xl:block">
         Popular Topics
       </p>
       <div className="flex flex-wrap gap-3">
@@ -22,10 +22,10 @@ const Discover = () => {
             <div
               className={topic === item.name ? activeTopicStyle : topicStyle}
             >
-              <span className="font-bol0d text-2xl xl:text-center">
+              <span className="text-xl xl:text-center">
                 {item.icon}
               </span>
-              <span className="hidden text-center font-medium capitalize xl:block">
+              <span className="hidden text-center font-semibold capitalize xl:block">
                 {item.name}
               </span>
             </div>

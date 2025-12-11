@@ -15,15 +15,15 @@ const SuggestedAccounts = () => {
   }, [fetchAllUsers]);
 
   return (
-    <div className="hidden border-gray-200 pb-4 md:block xl:border-b-2">
-      <p className="m-3 mt-4 hidden font-semibold text-gray-500 xl:block">
+    <div className="hidden pb-4 md:block xl:border-b xl:border-white/80">
+      <p className="m-3 mt-4 hidden text-sm font-semibold uppercase tracking-[0.18em] text-slate-400 xl:block">
         Suggested Accounts
       </p>
 
       <div>
         {allUsers?.slice(0, 5).map((user: IUser) => (
           <Link href={`/profile/${user._id}`} key={user._id}>
-            <div className="flex cursor-pointer items-center gap-3 rounded p-2 font-semibold hover:bg-primary ">
+            <div className="group flex cursor-pointer items-center gap-3 rounded-xl border border-transparent p-2 font-semibold transition hover:-translate-y-0.5 hover:border-brand/20 hover:bg-white/60 hover:shadow-md">
               <div className="relative h-8 w-8">
                 <Image
                   src={user.image}
