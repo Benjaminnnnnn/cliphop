@@ -20,13 +20,6 @@ const UserProfile = ({ data }: IProps) => {
   const [showVideos, setShowVideos] = useState(true);
   const [videos, setVideos] = useState<Video[]>([]);
 
-  const showVideosStyle = showVideos
-    ? "border-b-2 border-black"
-    : "text-gray-400";
-  const likeVideosStyle = !showVideos
-    ? "border-b-2 border-black"
-    : "text-gray-400";
-
   useEffect(() => {
     if (showVideos) {
       setVideos(userVideos);
@@ -44,57 +37,78 @@ const UserProfile = ({ data }: IProps) => {
   return (
     <div className="w-full">
       <Navbar></Navbar>
-      <div className="mt-4 flex flex-col items-center gap-6 bg-white md:mt-10 md:gap-10">
-        <div className="w-[90%] cursor-default">
-          <div className="flex items-center gap-4 rounded p-2 pl-0 font-semibold md:gap-6">
-            <div className="relative h-16 w-16 md:h-20 md:w-20">
-              <Image
-                src={user.image}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-full"
-                alt="user profile"
-              ></Image>
+      <div className="mx-auto mt-6 flex w-full max-w-5xl flex-col gap-6 px-4 pb-12 md:mt-10 md:px-6">
+        <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white px-6 py-10 shadow-[0_24px_70px_-60px_rgba(15,23,42,0.4)]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,95,109,0.08),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(77,210,255,0.08),transparent_30%)]" aria-hidden />
+          <div className="relative flex flex-col gap-4 text-slate-900 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-4 md:gap-6">
+              <div className="relative h-20 w-20 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm">
+                <Image
+                  src={user.image}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-2xl"
+                  alt="user profile"
+                ></Image>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <p className="flex items-center gap-2 text-xl font-bold md:text-2xl">
+                  {user.userName}
+                  <GoVerified className="text-blue-400"></GoVerified>
+                </p>
+                <p className="text-sm text-slate-500">@{user.userName}</p>
+              </div>
             </div>
 
-            <div className="self-start">
-              <p className="flex items-center gap-2 text-lg font-bold capitalize text-primary md:text-xl">
-                {user.userName}
-                <GoVerified className="text-blue-400"></GoVerified>
-              </p>
-
-              <p className="text-xs capitalize text-gray-400 md:text-sm">
-                {user.userName}
-              </p>
+            <div className="flex items-center gap-3">
+              <button className="rounded-full border border-slate-200 bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                Follow
+              </button>
+              <button className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50">
+                Message
+              </button>
             </div>
-          </div>
-
-          <div className="my-4 flex gap-10 border-b-2 border-gray-200 bg-white ">
-            <p
-              className={`mt-2 cursor-pointer text-xl font-semibold ${showVideosStyle}`}
-              onClick={() => setShowVideos(true)}
-            >
-              Posted
-            </p>
-            <p
-              className={`mt-2 cursor-pointer text-xl font-semibold ${likeVideosStyle}`}
-              onClick={() => setShowVideos(false)}
-            >
-              Liked
-            </p>
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-6">
-          {videos.length > 0 ? (
-            videos.map((video, index) => (
-              <VideoCard post={video} key={index}></VideoCard>
-            ))
-          ) : (
-            <NoResults
-              text={`No ${showVideos ? "" : "Liked"} Videos Yet`}
-            ></NoResults>
-          )}
+        <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <div className="flex gap-6 border-b border-slate-200 px-4 py-3 md:px-6">
+            <button
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                showVideos
+                  ? "bg-slate-900 text-white shadow"
+                  : "text-slate-600 hover:bg-slate-100"
+              }`}
+              onClick={() => setShowVideos(true)}
+            >
+              Posted
+            </button>
+            <button
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                !showVideos
+                  ? "bg-slate-900 text-white shadow"
+                  : "text-slate-600 hover:bg-slate-100"
+              }`}
+              onClick={() => setShowVideos(false)}
+            >
+              Liked
+            </button>
+          </div>
+
+          <div className="grid gap-5 px-4 py-6 sm:grid-cols-2 lg:grid-cols-3">
+            {videos.length > 0 ? (
+              videos.map((video, index) => (
+                <VideoCard post={video} key={index}></VideoCard>
+              ))
+            ) : (
+              <div className="col-span-full">
+                <NoResults
+                  text={`No ${showVideos ? "" : "Liked"} Videos Yet`}
+                ></NoResults>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { SanityAssetDocument } from "@sanity/client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { client } from "../utils/client";
 
@@ -21,6 +21,11 @@ const Upload = () => {
   const { userProfile } = useAuthStore();
   const router = useRouter();
   const fileTypes = ["video/mp4", "video/webm", "video/ogg"];
+  const isReadyToPost = useMemo(
+    () =>
+      caption.trim().length > 0 && videoAsset?._id && category && !savingPost,
+    [caption, videoAsset?._id, category, savingPost]
+  );
 
   const uploadVideo = async (e: any) => {
     const selectedFile = e.target.files[0];
@@ -76,135 +81,144 @@ const Upload = () => {
   };
 
   return (
-    <div className="absolute left-0 top-0 flex w-full bg-white lg:h-full lg:justify-center">
-      <div className="absolute left-4 top-6 z-50 flex gap-6 lg:left-6">
-        <a onClick={() => router.back()}>
-          <IoMdArrowBack className="cursor-pointer text-3xl"></IoMdArrowBack>
-        </a>
-      </div>
-
-      <div className="flex h-full w-full flex-col items-stretch gap-6 rounded-lg bg-white p-14 pt-6 lg:w-3/5 lg:gap-12 ">
-        <div className="flex flex-col items-center">
-          <div className="self-start">
-            <p className="text-2xl font-bold lg:mt-10">Upload Video</p>
-            <p className="mt-1 text-gray-400">Post a video to your account</p>
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-10 md:px-8 lg:max-h-screen lg:overflow-y-auto">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-2xl font-bold text-slate-900">Upload Video</p>
+            <p className="mt-1 text-sm text-slate-500">
+              Drop your clip, add a caption, and pick a topic.
+            </p>
           </div>
-          <div
-            className="roudned-xl group mt-8 flex aspect-[9/16] max-h-[600px]
-                      cursor-pointer flex-col items-center justify-center
-                      border-4 border-dashed border-gray-400 p-4
-                      outline-none hover:border-blue-300
-                      hover:bg-gray-100 lg:aspect-video lg:max-h-none "
+          <button
+            onClick={() => router.back()}
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
           >
-            {isLoading ? (
-              <p>Uploading</p>
-            ) : (
-              <div>
-                {videoAsset ? (
-                  <div>
-                    <video
-                      src={videoAsset.url}
-                      loop
-                      controls
-                      className="max-h-[500px] rounded-xl bg-black"
-                    ></video>
-                  </div>
-                ) : (
-                  <div className="h-full w-full">
-                    <label className="cursor-pointer">
-                      <div className="flex h-full flex-col items-center justify-center">
-                        {/* <div className="flex flex-1 flex-col items-center justify-center"> */}
-                        <p className="text-cl font-bold">
-                          <FaCloudUploadAlt className="text-6xl text-gray-300"></FaCloudUploadAlt>
-                        </p>
-                        {/* <p className="text-xl group-hover:font-medium">
-                            Upload Video
-                          </p> */}
-                        <p className="mt-5 text-center text-sm leading-8 text-gray-400">
-                          MP4, WebM, or ogg (1280x720px or higher) <br />
-                          Up to 10 mins <br />
-                          Less than 2 GB
-                          {/* MP4 or WebM or ogg <br />
-                            1280x720 or higher <br />
-                            Up to 10 mins <br />
-                            Less than 2 GB */}
-                        </p>
+            <IoMdArrowBack className="text-lg" />
+            Back
+          </button>
+        </div>
 
-                        {/* <p className="text-md mt-10 w-52 rounded bg-[#F51997] p-2 text-center font-medium text-white outline-none"> */}
-                        <p className="text-md mt-10 w-52 rounded bg-blue-500 p-2 text-center font-medium text-white outline-none active:bg-blue-700">
-                          Select File
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-6 shadow-sm lg:max-h-[80vh]">
+            <p className="mb-3 text-sm font-semibold text-slate-700">
+              Video file
+            </p>
+            <div className="group flex aspect-[9/16] max-h-[65vh] w-full items-center justify-center rounded-xl border border-slate-200 bg-slate-50/80 p-3 shadow-inner shadow-white/60 transition hover:border-brand/50 hover:bg-white">
+              {isLoading ? (
+                <p className="text-sm text-slate-500">Uploading...</p>
+              ) : (
+                <>
+                  {videoAsset ? (
+                    <div className="relative h-full w-full overflow-hidden rounded-lg border border-slate-200 bg-black">
+                      <video
+                        src={videoAsset.url}
+                        loop
+                        controls
+                        className="h-full w-full object-contain"
+                      ></video>
+                      <button
+                        onClick={handleDiscard}
+                        className="absolute right-3 top-3 rounded-full border border-white/40 bg-black/60 px-3 py-1 text-xs font-semibold text-white shadow-sm transition hover:scale-105"
+                      >
+                        Replace
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="flex h-full w-full cursor-pointer flex-col items-center justify-center gap-3 text-center">
+                      <FaCloudUploadAlt className="text-5xl text-slate-300 group-hover:text-brand" />
+                      <div className="space-y-1">
+                        <p className="text-sm font-semibold text-slate-700">
+                          Upload a video
                         </p>
-                        {/* </div> */}
+                        <p className="text-xs text-slate-500">
+                          MP4, WebM, or OGG · 1280x720+ · up to 10 mins · &lt;
+                          2GB
+                        </p>
                       </div>
-
+                      <span className="mt-2 rounded-full bg-[#ff6b6b] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                        Select file
+                      </span>
                       <input
                         type="file"
                         name="upload-video"
-                        className="h-0 w-0"
+                        className="hidden"
                         accept={fileTypes.join(",")}
                         onChange={uploadVideo}
                       ></input>
                     </label>
-                  </div>
-                )}
-              </div>
-            )}
-
+                  )}
+                </>
+              )}
+            </div>
             {wrongFileType && (
-              // <p className="mt-4 w-[250px] text-center text-xl font-semibold text-red-400">
-              <p className="mt-4 w-[250px] text-center text-xl font-semibold text-blue-300">
-                Please select a video file
+              <p className="mt-3 text-sm font-semibold text-rose-500">
+                Please select a supported video file.
               </p>
             )}
           </div>
-        </div>
-        <div className="flex w-full flex-col gap-3">
-          <label className="text-base font-medium" htmlFor="caption">
-            Caption
-          </label>
-          <input
-            type="text"
-            value={caption}
-            onChange={(e) => {
-              setCaption(e.target.value);
-            }}
-            id="caption"
-            className="rounded border-2 border-gray-200 p-2 text-base outline-none focus:outline-blue-400"
-          />
 
-          <label htmlFor="category">Choose a category</label>
-          <select
-            name="category"
-            id="category"
-            value={category}
-            onChange={(e) => {
-              setCategory(e.target.value);
-            }}
-            className="cursor-pointer rounded border-2 border-gray-200 p-2 text-base capitalize outline-none focus:outline-blue-400 lg:p-4"
-          >
-            {topics.map((topic) => (
-              <option key={topic.name} value={topic.name}>
-                {topic.name}
-              </option>
-            ))}
-          </select>
+          <div className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <label
+              className="text-sm font-semibold text-slate-700"
+              htmlFor="caption"
+            >
+              Caption
+            </label>
+            <input
+              type="text"
+              value={caption}
+              onChange={(e) => {
+                setCaption(e.target.value);
+              }}
+              id="caption"
+              className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-base text-slate-800 transition focus:border-brand/50 focus:bg-white focus:outline-none"
+              placeholder="Add a short caption"
+            />
 
-          <div className="mt-6 flex gap-6 pb-4">
-            <button
-              onClick={handleDiscard}
-              type="button"
-              className="flex-1 cursor-pointer rounded border-2 border-gray-300 p-2 text-base font-medium active:bg-gray-300 lg:w-44 lg:flex-none"
+            <label
+              className="text-sm font-semibold text-slate-700"
+              htmlFor="category"
             >
-              Discard
-            </button>
-            <button
-              onClick={handlePost}
-              type="button"
-              // className="flex-1 cursor-pointer rounded border-2 border-gray-300 bg-[#F51997] p-2 text-base font-medium text-white lg:w-44 lg:flex-none"
-              className="flex-1 cursor-pointer rounded border-2 border-gray-300 bg-blue-500 p-2 text-base font-medium text-white active:bg-blue-700 lg:w-44 lg:flex-none"
+              Topic
+            </label>
+            <select
+              name="category"
+              id="category"
+              value={category}
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
+              className="cursor-pointer rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-base capitalize text-slate-800 transition focus:border-brand/50 focus:bg-white focus:outline-none"
             >
-              Post
-            </button>
+              {topics.map((topic) => (
+                <option key={topic.name} value={topic.name}>
+                  {topic.name}
+                </option>
+              ))}
+            </select>
+
+            <div className="mt-2 flex gap-4">
+              <button
+                onClick={handleDiscard}
+                type="button"
+                className="flex-1 cursor-pointer rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              >
+                Discard
+              </button>
+              <button
+                onClick={handlePost}
+                type="button"
+                disabled={!isReadyToPost}
+                className={`flex-1 cursor-pointer rounded-full px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${
+                  isReadyToPost
+                    ? "bg-[#ff6b6b]"
+                    : "cursor-not-allowed bg-slate-300 text-slate-100 hover:translate-y-0 hover:shadow-none"
+                }`}
+              >
+                {savingPost ? "Posting..." : "Post"}
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -21,7 +21,7 @@ const Footer = () => {
       <List items={footerList3} mt></List>
 
       <p className="mt-5 text-sm font-medium text-slate-400">
-        2022 Cliphop · Made for creators
+        2025 Cliphop · Made for creators
       </p>
     </div>
   );

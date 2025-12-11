@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { AiOutlineSearch } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
 import { IoMdAdd } from "react-icons/io";
 import { IoLogOutOutline } from "react-icons/io5";
 import { IUser } from "../../types";
@@ -15,24 +15,29 @@ import Logo from "../utils/cliphop-logo-only.png";
 const MenuCollapse = ({
   removeUser,
   setIsOpen,
+  userId,
 }: {
   removeUser: () => void;
   setIsOpen: (prevIsOpen: boolean) => void;
+  userId: string;
 }) => (
-  // use a modal to close the menu when user clicks anywhere
-  <div
-    className="absolute left-0 top-0 z-10 h-[100vh] w-[100vw]"
-    onClick={() => {
-      setIsOpen(false);
-    }}
-  >
-    <div className="w-30 absolute right-2 top-16 flex h-60 flex-col rounded-lg border-2 bg-white drop-shadow md:h-80 md:w-60">
-      <button className="mt-2 hidden w-full items-center gap-2 px-4 py-2 hover:bg-primary">
-        <AiOutlineSearch fontSize={24}></AiOutlineSearch>
-        <span>Search</span>
-      </button>
+  <>
+    <div
+      className="fixed inset-0 z-30 h-screen w-screen"
+      onClick={() => setIsOpen(false)}
+    />
+    <div
+      className="absolute right-0 top-[calc(100%+10px)] z-40 flex w-52 flex-col rounded-xl border border-slate-200 bg-white/95 shadow-lg backdrop-blur md:w-64"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <Link href={`/profile/${userId}`}>
+        <a className="inline-flex w-full items-center gap-2 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">
+          <CgProfile className="text-lg" />
+          <span>Profile</span>
+        </a>
+      </Link>
       <button
-        className="mt-2 inline-flex w-full items-center gap-2 px-4 py-2 hover:bg-primary md:py-4"
+        className="inline-flex w-full items-center gap-2 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
         type="button"
         onClick={() => {
           googleLogout();
@@ -41,11 +46,11 @@ const MenuCollapse = ({
           location.reload();
         }}
       >
-        <IoLogOutOutline fontSize={24}></IoLogOutOutline>
+        <IoLogOutOutline className="text-lg"></IoLogOutOutline>
         <span>Logout</span>
       </button>
     </div>
-  </div>
+  </>
 );
 
 const Navbar = () => {
@@ -94,7 +99,7 @@ const Navbar = () => {
       <div className="relative left-2 hidden md:block">
         <form onSubmit={handleSearch}>
           <input
-            className="w-[320px] rounded-full border border-white/80 bg-white/80 px-5 py-3 text-sm font-medium text-slate-800 shadow-[0_10px_35px_-18px_rgba(15,23,42,0.4)] ring-1 ring-transparent transition focus:border-brand/60 focus:outline-none focus:ring-brand/40 md:w-[360px] md:text-base"
+            className="w-[320px] rounded-full border border-slate-200 bg-white/90 px-5 py-3 text-sm font-medium text-slate-800 shadow-inner shadow-white/60 ring-1 ring-transparent transition focus:border-brand/60 focus:outline-none focus:ring-brand/40 md:w-[360px] md:text-base"
             type="text"
             value={searchValue}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -129,7 +134,7 @@ const Navbar = () => {
         {user ? (
           <div className="flex items-center gap-3 lg:gap-6">
             <Link href="/upload">
-              <button className="flex items-center gap-2 rounded-full bg-[linear-gradient(120deg,#ff5f6d,#ff7f68,#ffc371)] px-3 py-2 text-sm font-semibold text-white shadow-[0_12px_30px_-15px_rgba(255,95,109,0.55)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-14px_rgba(255,95,109,0.65)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 active:translate-y-0 md:px-4 md:text-base">
+              <button className="flex items-center gap-2 rounded-full bg-[#ff6b6b] px-3 py-2 text-sm font-semibold text-white shadow-[0_12px_30px_-15px_rgba(255,107,107,0.45)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-14px_rgba(255,107,107,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b6b]/60 active:translate-y-0 md:px-4 md:text-base">
                 <IoMdAdd className="text-xl"></IoMdAdd>
                 {` `}
                 <span className="hidden md:block">Upload</span>
@@ -137,7 +142,7 @@ const Navbar = () => {
             </Link>
 
             {user.image && (
-              <>
+              <div className="relative">
                 <div
                   className="relative flex h-10 w-10 flex-col rounded-full border-4 border-transparent ring-2 ring-white/60 transition hover:border-brand hover:ring-brand/30 md:h-12 md:w-12"
                   onClick={() => {
@@ -156,9 +161,10 @@ const Navbar = () => {
                   <MenuCollapse
                     removeUser={removeUser}
                     setIsOpen={setIsOpen}
+                    userId={user?._id || ""}
                   ></MenuCollapse>
                 )}
-              </>
+              </div>
             )}
           </div>
         ) : (

@@ -23,26 +23,24 @@ const LikeButton = ({ handleLike, handleDislike, likes }: IProps) => {
   }, [filterLikes, likes]);
 
   return (
-    <div>
-      <div className="flex cursor-pointer flex-col items-center justify-center">
-        {liked ? (
-          <div
-            className="rounded-full p-2 text-[#F51997] hover:bg-primary md:p-4"
-            onClick={handleDislike}
-          >
-            <MdFavorite className="text-lg  md:text-2xl"></MdFavorite>
-          </div>
-        ) : (
-          <div
-            className="rounded-full p-2 hover:bg-primary md:p-4"
-            onClick={handleLike}
-          >
-            <MdFavoriteBorder className="text-lg md:text-2xl"></MdFavoriteBorder>
-          </div>
-        )}
+    <div className="flex cursor-pointer items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+      {liked ? (
+        <button
+          className="rounded-full p-1.5 text-rose-500 transition hover:bg-rose-50"
+          onClick={handleDislike}
+        >
+          <MdFavorite className="text-xl md:text-2xl"></MdFavorite>
+        </button>
+      ) : (
+        <button
+          className="rounded-full p-1.5 text-slate-700 transition hover:bg-slate-100"
+          onClick={handleLike}
+        >
+          <MdFavoriteBorder className="text-xl md:text-2xl"></MdFavoriteBorder>
+        </button>
+      )}
 
-        <p className=" text-base font-semibold">{likes?.length | 0}</p>
-      </div>
+      <p className="text-sm font-semibold text-slate-800">{likes?.length | 0}</p>
     </div>
   );
 };
