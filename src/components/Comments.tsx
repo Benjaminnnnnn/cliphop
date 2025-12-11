@@ -100,7 +100,7 @@ const Comments = ({
             />
 
             <button
-              className="h-full rounded-full border border-brand/30 bg-[linear-gradient(120deg,#ff5f6d,#ff7f68,#ffc371)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_30px_-15px_rgba(255,95,109,0.6)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_36px_-14px_rgba(255,95,109,0.65)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40"
+              className="h-full rounded-full border border-brand/30 bg-[linear-gradient(120deg,#ff5f6d,#ff7f68,#ffc371)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_30px_-15px_rgba(255,95,109,0.6)] transition  hover:shadow-[0_12px_36px_-14px_rgba(255,95,109,0.65)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40"
               onClick={addComment}
             >
               {isPostingComment ? "Commenting..." : "Comment"}

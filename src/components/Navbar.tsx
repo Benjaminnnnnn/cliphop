@@ -134,7 +134,7 @@ const Navbar = () => {
         {user ? (
           <div className="flex items-center gap-3 lg:gap-6">
             <Link href="/upload">
-              <button className="flex items-center gap-2 rounded-full bg-[#ff6b6b] px-3 py-2 text-sm font-semibold text-white shadow-[0_12px_30px_-15px_rgba(255,107,107,0.45)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-14px_rgba(255,107,107,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b6b]/60 active:translate-y-0 md:px-4 md:text-base">
+              <button className="flex items-center gap-2 rounded-full bg-[#ff6b6b] px-3 py-2 text-sm font-semibold text-white shadow-[0_12px_30px_-15px_rgba(255,107,107,0.45)] transition  hover:shadow-[0_16px_36px_-14px_rgba(255,107,107,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b6b]/60 active:translate-y-0 md:px-4 md:text-base">
                 <IoMdAdd className="text-xl"></IoMdAdd>
                 {` `}
                 <span className="hidden md:block">Upload</span>

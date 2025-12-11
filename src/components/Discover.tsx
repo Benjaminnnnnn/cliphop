@@ -9,7 +9,7 @@ const Discover = () => {
   const activeTopicStyle =
     "flex cursor-pointer items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand/90 to-brandSecondary/90 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-brand/20 transition hover:brightness-105";
   const topicStyle =
-    "flex cursor-pointer items-center justify-center gap-2 rounded-full border border-white/70 bg-white/60 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-brand/30 hover:text-brand";
+    "flex cursor-pointer items-center justify-center gap-2 rounded-full border border-white/70 bg-white/60 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition  hover:border-brand/30 hover:text-brand";
 
   return (
     <div className="pb-6 xl:border-b xl:border-white/80">
@@ -22,9 +22,7 @@ const Discover = () => {
             <div
               className={topic === item.name ? activeTopicStyle : topicStyle}
             >
-              <span className="text-xl xl:text-center">
-                {item.icon}
-              </span>
+              <span className="text-xl xl:text-center">{item.icon}</span>
               <span className="hidden text-center font-semibold capitalize xl:block">
                 {item.name}
               </span>

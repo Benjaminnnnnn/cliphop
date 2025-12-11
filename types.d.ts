@@ -35,4 +35,6 @@ export interface IUser {
   _type: string;
   userName: string;
   image: string;
+  followers?: { _ref: string; _key?: string }[];
+  following?: { _ref: string; _key?: string }[];
 }

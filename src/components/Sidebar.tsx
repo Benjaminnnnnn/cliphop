@@ -15,7 +15,7 @@ const Sidebar = () => {
   return (
     <div className="hidden sm:flex sm:flex-col">
       <div
-        className="mb-3 flex cursor-pointer flex-col items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-2xl text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+        className="mb-3 flex cursor-pointer flex-col items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-2xl text-slate-600 shadow-sm transition  hover:shadow-md"
         onClick={() => setShowSidebar((prev) => !prev)}
       >
         {showSidebar ? (

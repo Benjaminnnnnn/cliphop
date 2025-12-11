@@ -23,7 +23,7 @@ const SuggestedAccounts = () => {
       <div>
         {allUsers?.slice(0, 5).map((user: IUser) => (
           <Link href={`/profile/${user._id}`} key={user._id}>
-            <div className="group flex cursor-pointer items-center gap-3 rounded-xl border border-transparent p-2 font-semibold transition hover:-translate-y-0.5 hover:border-brand/20 hover:bg-white/60 hover:shadow-md">
+            <div className="group flex cursor-pointer items-center gap-3 rounded-xl border border-transparent p-2 font-semibold transition  hover:border-brand/20 hover:bg-white/60 hover:shadow-md">
               <div className="relative h-8 w-8">
                 <Image
                   src={user.image}

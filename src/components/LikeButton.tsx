@@ -23,7 +23,7 @@ const LikeButton = ({ handleLike, handleDislike, likes }: IProps) => {
   }, [filterLikes, likes]);
 
   return (
-    <div className="flex cursor-pointer items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+    <div className="flex cursor-pointer items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 shadow-sm transition  hover:shadow-md">
       {liked ? (
         <button
           className="rounded-full p-1.5 text-rose-500 transition hover:bg-rose-50"
@@ -40,7 +40,9 @@ const LikeButton = ({ handleLike, handleDislike, likes }: IProps) => {
         </button>
       )}
 
-      <p className="text-sm font-semibold text-slate-800">{likes?.length | 0}</p>
+      <p className="text-sm font-semibold text-slate-800">
+        {likes?.length | 0}
+      </p>
     </div>
   );
 };

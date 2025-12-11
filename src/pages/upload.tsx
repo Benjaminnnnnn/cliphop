@@ -92,7 +92,7 @@ const Upload = () => {
           </div>
           <button
             onClick={() => router.back()}
-            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition  hover:shadow-md"
           >
             <IoMdArrowBack className="text-lg" />
             Back
@@ -136,7 +136,7 @@ const Upload = () => {
                           2GB
                         </p>
                       </div>
-                      <span className="mt-2 rounded-full bg-[#ff6b6b] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                      <span className="mt-2 rounded-full bg-[#ff6b6b] px-4 py-2 text-sm font-semibold text-white shadow-sm transition  hover:shadow-md">
                         Select file
                       </span>
                       <input
@@ -202,7 +202,7 @@ const Upload = () => {
               <button
                 onClick={handleDiscard}
                 type="button"
-                className="flex-1 cursor-pointer rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                className="flex-1 cursor-pointer rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition  hover:shadow-md"
               >
                 Discard
               </button>
@@ -210,7 +210,7 @@ const Upload = () => {
                 onClick={handlePost}
                 type="button"
                 disabled={!isReadyToPost}
-                className={`flex-1 cursor-pointer rounded-full px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${
+                className={`flex-1 cursor-pointer rounded-full px-4 py-2 text-sm font-semibold text-white shadow-sm transition  hover:shadow-md ${
                   isReadyToPost
                     ? "bg-[#ff6b6b]"
                     : "cursor-not-allowed bg-slate-300 text-slate-100 hover:translate-y-0 hover:shadow-none"

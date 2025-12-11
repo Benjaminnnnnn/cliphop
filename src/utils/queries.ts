@@ -89,7 +89,19 @@ likes,
 };
 
 export const singleUserQuery = (userId: string | string[]) => {
-  const query = `*[_type == "user" && _id == '${userId}']`;
+  const query = `*[_type == "user" && _id == '${userId}']{
+    _id,
+    userName,
+    image,
+    followers[]{
+      _key,
+      _ref
+    },
+    following[]{
+      _key,
+      _ref
+    }
+  }`;
 
   return query;
 };

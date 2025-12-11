@@ -2,13 +2,14 @@ import axios from "axios";
 import { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useMemo, useRef, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { BsFillPauseFill, BsFillPlayFill } from "react-icons/bs";
+import { FiMaximize2 } from "react-icons/fi";
 import { GoVerified } from "react-icons/go";
 import { HiVolumeOff, HiVolumeUp } from "react-icons/hi";
 import { TfiCommentAlt } from "react-icons/tfi";
-import { FiMaximize2 } from "react-icons/fi";
 import { Video } from "../../types";
 import useAuthStore from "../store/authStore";
 
@@ -17,6 +18,7 @@ interface IProps {
 }
 
 const VideoCard: NextPage<IProps> = ({ post }) => {
+  const router = useRouter();
   const [isHover, setIsHover] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -85,8 +87,21 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
     }
   };
 
+  const goToDetail = () => router.push(`/detail/${post._id}`);
+
   return (
-    <div className="group relative flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+    <div
+      className="group relative flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition  hover:shadow-md"
+      role="button"
+      tabIndex={0}
+      onClick={goToDetail}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          goToDetail();
+        }
+      }}
+    >
       <div className="flex items-center gap-3">
         <div className="h-10 w-10 cursor-pointer md:h-12 md:w-12">
           <Link href={`/profile/${post.postedBy._id}`}>
@@ -130,17 +145,25 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
               <video
                 src={post.video.asset.url}
                 loop
-                className="aspect-video w-full max-h-[620px] cursor-pointer bg-slate-100 object-cover"
+                className="aspect-video max-h-[620px] w-full cursor-pointer bg-slate-100 object-cover"
                 ref={videoRef}
                 muted={isMuted}
-                onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
-                onLoadedMetadata={(e) => setDuration(e.currentTarget.duration || 0)}
+                onTimeUpdate={(e) =>
+                  setCurrentTime(e.currentTarget.currentTime)
+                }
+                onLoadedMetadata={(e) =>
+                  setDuration(e.currentTarget.duration || 0)
+                }
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onVideoPress();
+                }}
               ></video>
             </a>
           </Link>
 
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 via-black/20 to-transparent px-4 pb-4 pt-12">
-            <div className="inline-flex max-w-full items-start gap-2 rounded-xl bg-black/65 px-3 py-2 text-white shadow-[0_10px_25px_-18px_rgba(0,0,0,0.8)] backdrop-blur">
+          <div className="from-black/55 pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t via-black/20 to-transparent px-4 pb-4 pt-12">
+            <div className="bg-black/65 inline-flex max-w-full items-start gap-2 rounded-xl px-3 py-2 text-white shadow-[0_10px_25px_-18px_rgba(0,0,0,0.8)] backdrop-blur">
               <span className="line-clamp-2 text-xs font-semibold leading-snug md:text-sm">
                 {post.caption || "Untitled clip"}
               </span>
@@ -161,12 +184,15 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
               <div className="absolute inset-0 flex items-center justify-center gap-3 md:gap-4">
                 <button
                   onClick={() => seekBy(-5)}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-black/80 text-white shadow-[0_12px_28px_-14px_rgba(0,0,0,0.75)] backdrop-blur transition hover:scale-105"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-black/80 text-white shadow-[0_12px_28px_-14px_rgba(0,0,0,0.75)] backdrop-blur transition hover:scale-105"
                 >
                   -5s
                 </button>
                 <button
-                  onClick={onVideoPress}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onVideoPress();
+                  }}
                   className="flex h-12 w-12 items-center justify-center rounded-full border border-white/40 bg-black/80 text-white shadow-[0_12px_28px_-14px_rgba(0,0,0,0.75)] backdrop-blur transition hover:scale-105 hover:border-slate-100"
                 >
                   {isPlaying ? (
@@ -176,7 +202,10 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
                   )}
                 </button>
                 <button
-                  onClick={() => setIsMuted((prev) => !prev)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsMuted((prev) => !prev);
+                  }}
                   className="flex h-12 w-12 items-center justify-center rounded-full border border-white/40 bg-black/80 text-white shadow-[0_12px_28px_-14px_rgba(0,0,0,0.75)] backdrop-blur transition hover:scale-105 hover:border-slate-100"
                 >
                   {isMuted ? (
@@ -186,13 +215,16 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
                   )}
                 </button>
                 <button
-                  onClick={() => seekBy(5)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    seekBy(5);
+                  }}
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-black/80 text-white shadow-[0_12px_28px_-14px_rgba(0,0,0,0.75)] backdrop-blur transition hover:scale-105"
                 >
                   +5s
                 </button>
               </div>
-              <div className="pointer-events-auto absolute bottom-3 left-3 right-3 flex items-center gap-2 rounded-full bg-black/55 px-3 py-2 text-white">
+              <div className="bg-black/55 pointer-events-auto absolute bottom-3 left-3 right-3 flex items-center gap-2 rounded-full px-3 py-2 text-white">
                 <input
                   type="range"
                   min={0}
@@ -221,8 +253,11 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
         <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={toggleLike}
-            className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold transition hover:-translate-y-0.5 ${
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleLike();
+            }}
+            className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold transition  ${
               likedByUser
                 ? "bg-rose-50 text-rose-600"
                 : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -237,17 +272,15 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
             <span>{likeCount}</span>
           </button>
           <Link href={`/detail/${post._id}`}>
-            <a className="flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:bg-slate-200">
+            <a
+              className="flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 transition  hover:bg-slate-200"
+              onClick={(e) => e.stopPropagation()}
+            >
               <TfiCommentAlt className="text-slate-500" />
               <span>{commentCount}</span>
             </a>
           </Link>
         </div>
-        <Link href={`/detail/${post._id}`}>
-          <a className="text-xs font-semibold text-slate-700 underline-offset-2 hover:text-slate-900 hover:underline">
-            Open
-          </a>
-        </Link>
       </div>
     </div>
   );
