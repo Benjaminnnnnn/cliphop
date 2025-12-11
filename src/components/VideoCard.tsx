@@ -91,7 +91,7 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
 
   return (
     <div
-      className="group relative flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition  hover:shadow-md"
+      className="group relative flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
       role="button"
       tabIndex={0}
       onClick={goToDetail}
@@ -105,7 +105,10 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
       <div className="flex items-center gap-3">
         <div className="h-10 w-10 cursor-pointer md:h-12 md:w-12">
           <Link href={`/profile/${post.postedBy._id}`}>
-            <div className="relative h-full w-full rounded-full">
+            <div
+              className="relative h-full w-full rounded-full"
+              onClick={(e) => e.stopPropagation()}
+            >
               <Image
                 className="rounded-full"
                 src={post.postedBy.image}
@@ -119,7 +122,10 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
 
         <div className="my-auto cursor-pointer md:my-0">
           <Link href={`/profile/${post.postedBy._id}`}>
-            <div className="flex flex-col justify-start gap-1">
+            <div
+              className="flex flex-col justify-start gap-1"
+              onClick={(e) => e.stopPropagation()}
+            >
               <div className="flex items-center gap-2">
                 <p className="text-sm font-semibold text-slate-900 md:text-base">
                   {post.postedBy.userName}
@@ -184,7 +190,7 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
               <div className="absolute inset-0 flex items-center justify-center gap-3 md:gap-4">
                 <button
                   onClick={() => seekBy(-5)}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-black/80 text-white shadow-[0_12px_28px_-14px_rgba(0,0,0,0.75)] backdrop-blur transition hover:scale-105"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-black/80 text-white shadow-[0_12px_28px_-14px_rgba(0,0,0,0.75)] backdrop-blur transition hover:scale-105"
                 >
                   -5s
                 </button>
