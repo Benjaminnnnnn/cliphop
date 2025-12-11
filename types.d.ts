@@ -38,3 +38,20 @@ export interface IUser {
   followers?: { _ref: string; _key?: string }[];
   following?: { _ref: string; _key?: string }[];
 }
+
+export interface IMessage {
+  _id: string;
+  text: string;
+  createdAt: string;
+  read?: boolean;
+  from: IUser;
+  to: IUser;
+  conversation: { _id: string };
+}
+
+export interface IConversation {
+  _id: string;
+  participants: IUser[];
+  lastMessage?: IMessage;
+  updatedAt?: string;
+}

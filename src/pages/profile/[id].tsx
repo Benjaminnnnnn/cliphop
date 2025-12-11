@@ -7,6 +7,7 @@ import Navbar from "../../components/Navbar";
 import NoResults from "../../components/NoResults";
 import VideoCard from "../../components/VideoCard";
 import useAuthStore from "../../store/authStore";
+import Link from "next/link";
 
 interface IProps {
   data: {
@@ -112,9 +113,13 @@ const UserProfile = ({ data }: IProps) => {
                   {isFollowing ? "Following" : "Follow"}
                 </button>
               )}
-              <button className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition  hover:bg-slate-50">
-                Message
-              </button>
+              {userProfile && userProfile._id !== user._id && (
+                <Link href={`/messages?userId=${user._id}`}>
+                  <a className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition  hover:-translate-y-0.5 hover:bg-slate-50">
+                    Message
+                  </a>
+                </Link>
+              )}
             </div>
           </div>
         </div>
